@@ -1,4 +1,4 @@
-package com.ph.juy;
+package com.ph.juy.ls.web.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
