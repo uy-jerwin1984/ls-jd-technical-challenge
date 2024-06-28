@@ -1,0 +1,64 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: juy
+      changes:
+        - createTable:
+            tableName: speech
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: author
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: content
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: updated_time
+                  type: timestamp
+        - createTable:
+            tableName: keyword
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: value
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: speech_id
+                  type: varchar(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: updated_time
+                  type: timestamp
+        - addForeignKeyConstraint:
+            baseTableName: keyword
+            baseColumnNames: speech_id
+            constraintName: fk_keyword_speech_id__speech_id
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            referencedTableName: speech
+            referencedColumnNames: id
+
