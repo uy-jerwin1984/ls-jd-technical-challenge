@@ -1,5 +1,7 @@
 package com.ph.juy.ls.service;
 
+import com.ph.juy.ls.mappers.SpeechMapper;
+import com.ph.juy.ls.model.Speech;
 import com.ph.juy.ls.repository.SpeechRepository;
 import com.ph.juy.ls.repository.entity.KeywordEntity;
 import com.ph.juy.ls.repository.entity.SpeechEntity;
@@ -16,11 +18,11 @@ public class SpeechService {
     @Autowired
     private SpeechRepository speechRepository;
 
-    public SpeechEntity create() {
-        final SpeechEntity speechEntity = new SpeechEntity();
-        speechEntity.setId(UUID.randomUUID().toString());
-        speechEntity.setAuthor(UUID.randomUUID().toString());
-        speechEntity.setContent(UUID.randomUUID().toString());
+    @Autowired
+    private SpeechMapper speechMapper;
+
+    public Speech create(final Speech speech) {
+        final SpeechEntity speechEntity = speechMapper.modelToEntity(speech);
         final List<KeywordEntity> keywords = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             final KeywordEntity keywordEntity = new KeywordEntity();
@@ -31,7 +33,7 @@ public class SpeechService {
         }
         speechEntity.setKeywords(keywords);
         speechRepository.save(speechEntity);
-        return speechEntity;
+        return speech;
     }
 
 }
