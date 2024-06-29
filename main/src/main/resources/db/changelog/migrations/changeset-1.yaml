@@ -4,22 +4,31 @@ databaseChangeLog:
       author: juy
       changes:
         - createTable:
-            tableName: sample
+            tableName: speech
             columns:
               - column:
                   name: id
-                  type: int
-                  autoIncrement: true
+                  type: varchar(36)
                   constraints:
+                    nullable: false
                     primaryKey: true
-                    nullable: false
               - column:
-                  name: name
+                  name: author
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: value
+                  name: content
                   type: varchar(255)
                   constraints:
                     nullable: false
+              - column:
+                  name: keyword
+                  type: varchar(255)
+              - column:
+                  name: created_time
+                  type: timestamp
+              - column:
+                  name: updated_time
+                  type: timestamp
+

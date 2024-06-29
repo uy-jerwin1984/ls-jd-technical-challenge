@@ -5,11 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import java.util.List;
 
 @Getter
 @Setter
@@ -22,7 +19,7 @@ public class SpeechEntity extends BaseEntity {
     private String author;
     @Column
     private String content;
-    @OneToMany(mappedBy = "speech", cascade = CascadeType.ALL)
-    private List<KeywordEntity> keywords;
+    @Column
+    private String keyword;
 
 }
