@@ -19,12 +19,15 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: content
-                  type: varchar(255)
+                  type: text
                   constraints:
                     nullable: false
               - column:
                   name: keyword
                   type: varchar(255)
+              - column:
+                  name: author_date
+                  type: timestamp
               - column:
                   name: created_time
                   type: timestamp

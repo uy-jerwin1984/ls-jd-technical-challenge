@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -30,17 +31,22 @@ public class SpeechController {
     public Speech findById(@PathVariable(name = "id") final String id) {
         return speechService.findById(id);
     }
-
+    
     @GetMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
     public List<Speech> list(
             @RequestParam(name = "author", required = false) final String author,
-            @RequestParam(name = "content", required = false) final String content
+            @RequestParam(name = "content", required = false) final String content,
+            @RequestParam(name = "author_date", required = false) final Instant authorDate,
+            @RequestParam(name = "keyword", required = false) final String keyword
+
     ) {
         final Speech speech = new Speech();
         speech.setAuthor(author);
         speech.setContent(content);
+        speech.setAuthorDate(authorDate);
+        speech.setKeyword(keyword);
         return speechService.query(speech);
     }
 
