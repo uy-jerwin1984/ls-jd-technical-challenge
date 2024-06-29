@@ -5,6 +5,7 @@ Feature: Update Speech
 
     * def create_speech_param = {}
     * create_speech_param.author = dataUtils.uuid();
+    * create_speech_param.content = dataUtils.uuid();
     * create_speech_param.keyword = dataUtils.uuid();
     * create_speech_param.author_date = dataUtils.instant();
 

@@ -15,13 +15,12 @@ public class SpeechSpecification {
         return (root, query, builder) -> builder.like(root.get("content"), "%" + content + "%");
     }
 
-    public static Specification<SpeechEntity> authorDate(final Instant authorDate) {
-        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.get("authorDate"), authorDate);
-    }
-
     public static Specification<SpeechEntity> keyword(final String keyword) {
         return (root, query, builder) -> builder.like(root.get("keyword"), "%" + keyword + "%");
     }
 
+    public static Specification<SpeechEntity> authorDate(final Instant authorDate) {
+        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.get("authorDate"), authorDate);
+    }
 
 }

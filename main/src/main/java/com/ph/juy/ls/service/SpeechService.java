@@ -60,11 +60,11 @@ public class SpeechService {
         if (StringUtils.isNotBlank(speech.getContent())) {
             spec = spec.and(SpeechSpecification.content(speech.getContent()));
         }
-        if (speech.getAuthorDate() != null) {
-            spec = spec.and(SpeechSpecification.authorDate(speech.getAuthorDate()));
-        }
         if (StringUtils.isNotBlank(speech.getKeyword())) {
             spec = spec.and(SpeechSpecification.keyword(speech.getKeyword()));
+        }
+        if (speech.getAuthorDate() != null) {
+            spec = spec.and(SpeechSpecification.authorDate(speech.getAuthorDate()));
         }
         final List<SpeechEntity> result = speechRepository.findAll(spec);
         return speechMapper.entitiesToModel(result);
