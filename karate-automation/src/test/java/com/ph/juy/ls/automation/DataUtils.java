@@ -14,4 +14,8 @@ public final class DataUtils {
         return LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     }
 
+    public static String instant_plus_days(int days) {
+        return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+    }
+
 }

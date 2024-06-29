@@ -8,10 +8,10 @@ import com.ph.juy.ls.repository.entity.SpeechEntity;
 import com.ph.juy.ls.repository.specifications.SpeechSpecification;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -41,17 +41,20 @@ public class SpeechService {
         return speechMapper.entityToModel(speechEntity);
     }
 
+    @Transactional(Transactional.TxType.NEVER)
     private SpeechEntity findEntityById(final String id) {
         return speechRepository.findById(id).orElseThrow(
                 () -> new SpeechNotFoundException("speech id not found " + id)
         );
     }
 
+    @Transactional(Transactional.TxType.NEVER)
     public Speech findById(final String id) {
         final SpeechEntity speechEntity = findEntityById(id);
         return speechMapper.entityToModel(speechEntity);
     }
 
+    @Transactional(Transactional.TxType.NEVER)
     public List<Speech> query(final Speech speech) {
         Specification<SpeechEntity> spec = Specification.where(null);
         if (StringUtils.isNotBlank(speech.getAuthor())) {
