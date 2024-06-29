@@ -23,7 +23,8 @@ public class SpeechController {
 
     @PostMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE})
+            consumes = {MediaType.APPLICATION_JSON_VALUE}
+    )
     public ResponseEntity<Response<Speech>> create(@Valid  @RequestBody final Request<Speech> request) {
         final Speech speech = speechService.create(request.getData());
         return ResponseEntity.status(HttpStatus.CREATED).body(Response.wrapObject(speech));
@@ -31,7 +32,8 @@ public class SpeechController {
 
     @PutMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE})
+            consumes = {MediaType.APPLICATION_JSON_VALUE}
+    )
     public ResponseEntity<Response<Speech>> update(@Valid  @RequestBody final Request<Speech> request) {
         final Speech speech = speechService.update(request.getData());
         return ResponseEntity.status(HttpStatus.OK).body(Response.wrapObject(speech));
@@ -39,16 +41,16 @@ public class SpeechController {
 
     @GetMapping(
             path = { "/{id}"},
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE})
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
     public ResponseEntity<Response<Speech>> findById(@PathVariable(name = "id") final String id) {
         final Speech speech = speechService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(Response.wrapObject(speech));
     }
     
     @GetMapping(
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE})
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
     public ResponseEntity<Response<Speech>> list(
             @RequestParam(name = "author", required = false) final String author,
             @RequestParam(name = "content", required = false) final String content,
@@ -67,8 +69,8 @@ public class SpeechController {
 
     @DeleteMapping(
             path = { "/{id}"},
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            consumes = {MediaType.APPLICATION_JSON_VALUE})
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
     public ResponseEntity<Response<Speech>> delete(@PathVariable(name = "id") final String id) {
         final Speech speech = speechService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(Response.wrapObject(speech));
