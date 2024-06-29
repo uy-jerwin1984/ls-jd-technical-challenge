@@ -10,6 +10,6 @@ Feature: Create Speech
     Given path '/speeches'
     And request body
     When method POST
-    Then status 200
+    Then status 201
     * print response.data
     * def data = response.data

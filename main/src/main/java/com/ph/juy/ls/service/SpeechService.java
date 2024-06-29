@@ -1,5 +1,6 @@
 package com.ph.juy.ls.service;
 
+import com.ph.juy.ls.exceptions.SpeechNotFoundException;
 import com.ph.juy.ls.mappers.SpeechMapper;
 import com.ph.juy.ls.model.Speech;
 import com.ph.juy.ls.repository.SpeechRepository;
@@ -24,11 +25,31 @@ public class SpeechService {
     public Speech create(final Speech speech) {
         final SpeechEntity speechEntity = speechMapper.modelToEntity(speech);
         speechRepository.save(speechEntity);
-        return speech;
+        return findById(speech.getId());
+    }
+    
+    public Speech update(final Speech speech) {
+        if (StringUtils.isBlank(speech.getId())) {
+            throw new SpeechNotFoundException();
+        }
+        findEntityById(speech.getId());
+        return create(speech);
+    }
+
+    public Speech delete(final String id) {
+        final SpeechEntity speechEntity = findEntityById(id);
+        speechRepository.delete(speechEntity);
+        return speechMapper.entityToModel(speechEntity);
+    }
+
+    private SpeechEntity findEntityById(final String id) {
+        return speechRepository.findById(id).orElseThrow(
+                () -> new SpeechNotFoundException("speech id not found " + id)
+        );
     }
 
     public Speech findById(final String id) {
-        final SpeechEntity speechEntity = speechRepository.findById(id).orElse(new SpeechEntity());
+        final SpeechEntity speechEntity = findEntityById(id);
         return speechMapper.entityToModel(speechEntity);
     }
 
