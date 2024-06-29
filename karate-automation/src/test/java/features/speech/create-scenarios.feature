@@ -31,7 +31,7 @@ Feature: Create Speech
     * assert create_speech_result.responseStatus === 400
     * assert create_speech_result.response.errors.length === 1
     * assert create_speech_result.response.errors[0].code === 'data.author'
-    
+
   Scenario: Create Speech without keyword
     * def create_speech_param = {}
     * create_speech_param.author = dataUtils.uuid();
@@ -40,6 +40,17 @@ Feature: Create Speech
     * def create_speech_result = call read('classpath:/features/speech/create.feature') create_speech_param
     * assert create_speech_result.responseStatus === 400
     * assert create_speech_result.response.errors.length === 1
+    * assert create_speech_result.response.errors[0].code === 'data.keyword'
+
+  Scenario: Create Speech without author date
+      * def create_speech_param = {}
+      * create_speech_param.author = dataUtils.uuid();
+      * create_speech_param.keyword = dataUtils.uuid();
+
+      * def create_speech_result = call read('classpath:/features/speech/create.feature') create_speech_param
+      * assert create_speech_result.responseStatus === 400
+      * assert create_speech_result.response.errors.length === 1
+      * assert create_speech_result.response.errors[0].code === 'data.authorDate'
 
 
 
