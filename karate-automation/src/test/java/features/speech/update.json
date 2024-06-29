@@ -1,0 +1,9 @@
+{
+  "data": {
+    "id": "#(id)",
+    "author": "#(author)",
+    "content": "#(content)",
+    "keyword": "#(keyword)",
+    "author_date" : "#(author_date)"
+  }
+}

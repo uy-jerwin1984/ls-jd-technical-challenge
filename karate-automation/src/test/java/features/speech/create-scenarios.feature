@@ -22,6 +22,18 @@ Feature: Create Speech
     * assert create_speech_param.keyword === get_speech_result.response.data.keyword
     * assert create_speech_param.author_date === get_speech_result.response.data.author_date
 
+  Scenario: Create Speech by passing id
+    * def id = dataUtils.uuid();
+    * def author = dataUtils.uuid();
+    * def keyword = dataUtils.uuid();
+    * def author_date = dataUtils.instant();
+    * def body = read('classpath:/features/speech/create.json')
+
+    Given path '/speeches'
+    And request body
+    When method POST
+    Then status 201
+
   Scenario: Create Speech without author
     * def create_speech_param = {}
     * create_speech_param.keyword = dataUtils.uuid();
