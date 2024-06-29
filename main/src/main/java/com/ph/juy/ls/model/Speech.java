@@ -1,5 +1,6 @@
 package com.ph.juy.ls.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -24,7 +26,8 @@ public class Speech extends Base {
     private String keyword;
     @NotNull
     @JsonProperty("author_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
     // TODO how will bean validation know this annotation versus property path based on reflection?
-    private Instant authorDate;
+    private LocalDate authorDate;
 
 }

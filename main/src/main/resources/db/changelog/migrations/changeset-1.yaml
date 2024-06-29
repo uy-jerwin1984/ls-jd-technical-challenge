@@ -29,7 +29,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: author_date
-                  type: timestamp
+                  type: date
                   constraints:
                     nullable: false
               - column:

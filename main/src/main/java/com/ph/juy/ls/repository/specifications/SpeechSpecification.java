@@ -3,7 +3,7 @@ package com.ph.juy.ls.repository.specifications;
 import com.ph.juy.ls.repository.entity.SpeechEntity;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.time.Instant;
+import java.time.LocalDate;
 
 public class SpeechSpecification {
 
@@ -19,8 +19,8 @@ public class SpeechSpecification {
         return (root, query, builder) -> builder.like(root.get("keyword"), "%" + keyword + "%");
     }
 
-    public static Specification<SpeechEntity> authorDate(final Instant authorDate) {
-        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.get("authorDate"), authorDate);
+    public static Specification<SpeechEntity> authorDate(final LocalDate authorDate) {
+        return (root, query, builder) -> builder.equal(root.get("authorDate"), authorDate);
     }
 
 }

@@ -7,7 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.time.Instant;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -23,6 +23,6 @@ public class SpeechEntity extends BaseEntity {
     @Column
     private String keyword;
     @Column(name = "author_date")
-    private Instant authorDate;
+    private LocalDate authorDate;
 
 }

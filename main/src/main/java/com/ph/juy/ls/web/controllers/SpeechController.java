@@ -5,13 +5,14 @@ import com.ph.juy.ls.model.Response;
 import com.ph.juy.ls.model.Speech;
 import com.ph.juy.ls.service.SpeechService;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -54,7 +55,8 @@ public class SpeechController {
     public ResponseEntity<Response<Speech>> list(
             @RequestParam(name = "author", required = false) final String author,
             @RequestParam(name = "content", required = false) final String content,
-            @RequestParam(name = "author_date", required = false) final Instant authorDate,
+            @RequestParam(name = "author_date", required = false)
+            @DateTimeFormat(pattern = "MM/dd/yyyy") final LocalDate authorDate,
             @RequestParam(name = "keyword", required = false) final String keyword
 
     ) {
