@@ -4,7 +4,7 @@ import com.ph.juy.ls.model.Request;
 import com.ph.juy.ls.model.Response;
 import com.ph.juy.ls.model.Speech;
 import com.ph.juy.ls.service.SpeechService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +16,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/speeches")
+@AllArgsConstructor
 public class SpeechController {
 
-    @Autowired
-    private SpeechService speechService;
+    private final SpeechService speechService;
 
     @PostMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE},

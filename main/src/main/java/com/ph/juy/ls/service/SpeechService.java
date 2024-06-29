@@ -6,6 +6,7 @@ import com.ph.juy.ls.model.Speech;
 import com.ph.juy.ls.repository.SpeechRepository;
 import com.ph.juy.ls.repository.entity.SpeechEntity;
 import com.ph.juy.ls.repository.specifications.SpeechSpecification;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -14,23 +15,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class SpeechService {
 
-    @Autowired
-    private SpeechRepository speechRepository;
-
-    @Autowired
-    private SpeechMapper speechMapper;
+    private final SpeechRepository speechRepository;
+    private final SpeechMapper speechMapper;
 
     public Speech create(final Speech speech) {
         final SpeechEntity speechEntity = speechMapper.modelToEntity(speech);
         speechRepository.save(speechEntity);
-        return findById(speech.getId());
+        return findById(speechEntity.getId());
     }
-    
+
     public Speech update(final Speech speech) {
         if (StringUtils.isBlank(speech.getId())) {
-            throw new SpeechNotFoundException();
+            throw new SpeechNotFoundException("speech not found " + speech.getId());
         }
         findEntityById(speech.getId());
         return create(speech);
