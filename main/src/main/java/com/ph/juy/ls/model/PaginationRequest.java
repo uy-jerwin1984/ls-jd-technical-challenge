@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class PaginationRequest {
 
-    private final Integer current;
-    private final Integer size;
+    private final Integer offset;
+    private final Integer limit;
 
 }

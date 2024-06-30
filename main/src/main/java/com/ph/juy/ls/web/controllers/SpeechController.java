@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/speeches")
@@ -56,8 +55,8 @@ public class SpeechController {
             @RequestParam(name = "author_date", required = false)
             @DateTimeFormat(pattern = "MM/dd/yyyy") final LocalDate authorDate,
             @RequestParam(name = "keyword", required = false) final String keyword,
-            @RequestParam(name = "current", required = false, defaultValue = "0") final Integer current,
-            @RequestParam(name = "size", required = false, defaultValue = "5") final Integer size
+            @RequestParam(name = "offset", required = false, defaultValue = "0") final Integer offset,
+            @RequestParam(name = "limit", required = false, defaultValue = "5") final Integer limit
 
     ) {
         final Speech speech = new Speech();
@@ -65,7 +64,7 @@ public class SpeechController {
         speech.setContent(content);
         speech.setAuthorDate(authorDate);
         speech.setKeyword(keyword);
-        final PaginationRequest paginationRequest = new PaginationRequest(current, size);
+        final PaginationRequest paginationRequest = new PaginationRequest(offset, limit);
         final SearchFilter<Speech> searchFilter = new SearchFilter<>(speech, paginationRequest);
         final PaginationResponse<Speech> paginationResponse = speechService.query(searchFilter);
         return ResponseEntity.status(HttpStatus.OK).body(paginationResponse);

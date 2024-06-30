@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -63,6 +62,7 @@ public class SpeechService {
     }
 
     @Transactional(Transactional.TxType.NEVER)
+    // TODO Unit Testing
     public PaginationResponse<Speech> query(final SearchFilter<Speech> searchFilter) {
         final Speech speech = searchFilter.getData();
         Specification<SpeechEntity> spec = Specification.where(null);
@@ -80,8 +80,8 @@ public class SpeechService {
         }
         final Sort sort = Sort.by(Sort.Order.desc("createdTime"));
         final PaginationRequest paginationRequest = searchFilter.getPage();
-        final Pageable pageable = PageRequest.of(paginationRequest.getCurrent(),
-                paginationRequest.getSize(), sort);
+        final Pageable pageable = PageRequest.of(paginationRequest.getOffset(),
+                paginationRequest.getLimit(), sort);
         final Page<SpeechEntity> result = speechRepository.findAll(spec, pageable);
         final List<Speech> items = speechMapper.entitiesToModel(result.getContent());
 
@@ -89,8 +89,7 @@ public class SpeechService {
                 items,
                 result.getPageable().getPageNumber(),
                 result.getPageable().getPageSize(),
-                result.getTotalPages(),
-                result.getTotalElements());
+                result.getTotalPages());
     }
 
 }
