@@ -1,8 +1,6 @@
 package com.ph.juy.ls.web.controllers;
 
-import com.ph.juy.ls.model.Request;
-import com.ph.juy.ls.model.Response;
-import com.ph.juy.ls.model.Speech;
+import com.ph.juy.ls.model.*;
 import com.ph.juy.ls.service.SpeechService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -52,12 +50,14 @@ public class SpeechController {
     @GetMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<Response<Speech>> list(
+    public ResponseEntity<PaginationResponse<Speech>> list(
             @RequestParam(name = "author", required = false) final String author,
             @RequestParam(name = "content", required = false) final String content,
             @RequestParam(name = "author_date", required = false)
             @DateTimeFormat(pattern = "MM/dd/yyyy") final LocalDate authorDate,
-            @RequestParam(name = "keyword", required = false) final String keyword
+            @RequestParam(name = "keyword", required = false) final String keyword,
+            @RequestParam(name = "current", required = false, defaultValue = "0") final Integer current,
+            @RequestParam(name = "size", required = false, defaultValue = "5") final Integer size
 
     ) {
         final Speech speech = new Speech();
@@ -65,8 +65,10 @@ public class SpeechController {
         speech.setContent(content);
         speech.setAuthorDate(authorDate);
         speech.setKeyword(keyword);
-        final List<Speech> items = speechService.query(speech);
-        return ResponseEntity.status(HttpStatus.OK).body(Response.wrapList(items));
+        final PaginationRequest paginationRequest = new PaginationRequest(current, size);
+        final SearchFilter<Speech> searchFilter = new SearchFilter<>(speech, paginationRequest);
+        final PaginationResponse<Speech> paginationResponse = speechService.query(searchFilter);
+        return ResponseEntity.status(HttpStatus.OK).body(paginationResponse);
     }
 
     @DeleteMapping(

@@ -1,31 +1,21 @@
 package com.ph.juy.ls.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
-@Setter
+@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Response<T> {
 
-    private T data;
-    private List<T> items = new ArrayList<>();
-    private Instant timestamp = Instant.now();
+    private final T data;
+    private final Instant timestamp;
 
     public static <T> Response<T> wrapObject(T data) {
-        final Response<T> response = new Response<>();
-        response.setData(data);
-        return response;
+        return new Response<>(data, Instant.now());
     }
 
-    public static <T> Response<T> wrapList(List<T> items) {
-        final Response<T> response = new Response<>();
-        response.setItems(items);
-        return response;
-    }
 }
