@@ -80,8 +80,8 @@ public class SpeechService {
         }
         final Sort sort = Sort.by(Sort.Order.desc("createdTime"));
         final PaginationRequest paginationRequest = searchFilter.getPage();
-        final Pageable pageable = PageRequest.of(paginationRequest.getOffset(),
-                paginationRequest.getLimit(), sort);
+        final Pageable pageable = PageRequest.of(paginationRequest.getPage(),
+                paginationRequest.getSize(), sort);
         final Page<SpeechEntity> result = speechRepository.findAll(spec, pageable);
         final List<Speech> items = speechMapper.entitiesToModel(result.getContent());
 

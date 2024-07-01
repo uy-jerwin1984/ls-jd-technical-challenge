@@ -11,16 +11,16 @@ import java.util.List;
 public class PaginationResponse<T> {
 
     private final List<T> items;
-    private final Integer offset;
-    private final Integer limit;
+    private final Integer page;
+    private final Integer size;
     @JsonProperty("total_pages")
     private final Integer totalPages;
 
     public static <T> PaginationResponse<T> wrap(final List<T> items,
-                                                 Integer offset,
-                                                 Integer limit,
-                                                 Integer totalPages) {
-        return new PaginationResponse<>(items, offset, limit, totalPages);
+                                                 final Integer page,
+                                                 final Integer size,
+                                                 final Integer totalPages) {
+        return new PaginationResponse<>(items, page, size, totalPages);
     }
 
 }
